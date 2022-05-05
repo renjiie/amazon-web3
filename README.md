@@ -84,15 +84,3 @@ function mint(uint256 amount) public payable {
   _mint(msg.sender, amount);
 }
 ```
-
-RINKEBY CONFIG
-NEXT_PUBLIC_MORALIS_SERVER=https://feox1jodkbvq.usemoralis.com:2053/server
-NEXT_PUBLIC_MORALIS_APP_ID=rubPfVxc9FEYPfewEC2Kc0ATrHDLqmwGa01Jwo73
-bd75cafaa6becf7b142c85ce18086fc876dcaf9a9d16390978e4697005ada91a
-
-ROPSTEN CONFIG
-
-https://anavqnssubcz.usemoralis.com:2053/server
-8HzaDqCeXxWiUiOPgS9VPxyoeQq5uStNai9yCZ7L
-https://speedy-nodes-nyc.moralis.io/4c43211f09dbd9c7f29b52f1/eth/ropsten
-bd75cafaa6becf7b142c85ce18086fc876dcaf9a9d16390978e4697005ada91a
