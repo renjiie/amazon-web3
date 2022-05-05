@@ -1,34 +1,98 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+**Commands to setup the setup the starter files**
 
-## Getting Started
+```
+npx create-next-app@latest .
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p (configs tailwind and postcss created)
+In tailwind config.js add below code
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
+module.exports = {
+  content: ["./src/**/*.{html,js}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+In styles globals.css add
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-## Learn More
+```
 
-To learn more about Next.js, take a look at the following resources:
+Moralis
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Register in Moralis
+- Like firebase manages crypto backend which has all infrastructure for creating DAPPS.
+- Without moralis we need to setup all the nodes. Reinventing wheel and headaches
+- Create a testnet server I have chosen Bangalore nearest location with ETH Rinkeby EVM Configuration
+- Install SDK using command `npm install moralis react-moralis`
+- Create a .env file for connect to Moralis `NEXT_PUBLIC_MORALIS_SERVER , NEXT_PUBLIC_MORALIS_APP_ID`
+- Wrap APP.JS file with moralis provider
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```
+import { MoralisProvider } from 'react-moralis'
+<MoralisProvider
+  serverUrl={process.env.NEXT_PUBLIC_MORALIS_SERVER}
+  appId={process.env.NEXT_PUBLIC_MORALIS_APP_ID}
+>
+<Component {...pageProps} />
+</MoralisProvider>
+```
 
-## Deploy on Vercel
+COPY ALL DEPENDENCIES FROM **_https://raw.githubusercontent.com/CleverProgrammers/amazon-blockchain-youtube/main/package.json_**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**WEB3UIKIT** provides the connect wallet functionality with styled button `import { ConnectButton } from 'web3uikit'`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Create CONTEXT API in the root folder for global access (Username, isAuthenticate from Moralis hooks)
+
+Moralis DB --> Custom collections (Based on MongoDB) --> assets(collection name) --> ADD Cols(name,price,src)
+
+Hardhat -> test,deploy and compile smartcontracts `npx hardhat` and `npm install --save-dev @nomiclabs/hardhat-waffle ethereum-waffle chai @nomiclabs/hardhat-ethers ethers`
+
+**VS CODE EXTENSION**
+
+- Solidity (Extension which provides support for solidity language)
+
+**Smart Contracts**
+
+- We use solidity to code the smart contracts for our DAPP
+- Open zeppelin for code snippets based on erc standards
+
+**OPENZEPPELIN**
+
+- Library of ETH contracts which follows certain standards. We can build on top of this package
+- Create token by creating smart contracts of ERC-20 standards
+- **https://docs.openzeppelin.com/contracts/4.x/wizard** playground with solidity code snippets for ERC-20, 721 1155 etc.
+- Good read **https://docs.openzeppelin.com/learn/developing-smart-contracts**
+
+Code for getting FP Coins from ether
+
+```
+//Condition (require) to check the FP coins that we are getting after trx is correct or not. If there is any error it shows invalid amount of ethers message
+function mint(uint256 amount) public payable {
+  require(msg.value == amount * 0.0001 ether, "invalid amount of ether");
+  ********** after check sending the FP coins to users ************
+  _mint(msg.sender, amount);
+}
+```
+
+RINKEBY CONFIG
+NEXT_PUBLIC_MORALIS_SERVER=https://feox1jodkbvq.usemoralis.com:2053/server
+NEXT_PUBLIC_MORALIS_APP_ID=rubPfVxc9FEYPfewEC2Kc0ATrHDLqmwGa01Jwo73
+bd75cafaa6becf7b142c85ce18086fc876dcaf9a9d16390978e4697005ada91a
+
+ROPSTEN CONFIG
+
+https://anavqnssubcz.usemoralis.com:2053/server
+8HzaDqCeXxWiUiOPgS9VPxyoeQq5uStNai9yCZ7L
+https://speedy-nodes-nyc.moralis.io/4c43211f09dbd9c7f29b52f1/eth/ropsten
+bd75cafaa6becf7b142c85ce18086fc876dcaf9a9d16390978e4697005ada91a
